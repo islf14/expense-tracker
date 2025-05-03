@@ -1,5 +1,5 @@
 import { Command } from 'commander'
-import { addExpense, listExpenses } from './expense.js'
+import { addExpense, deleteExpense, listExpenses, totalSummary } from './expense.js'
 const program = new Command()
 
 program
@@ -17,10 +17,8 @@ program
       const amount = myParseInt(options.amount)
       if (amount !== false) {
         addExpense({ amount, description: options.description })
-      }
-    } else {
-      console.log('error: amount and description are required')
-    }
+      } else console.log('error: amount must be a number')
+    } else console.log('error: amount and description are required')
   })
 
 program
@@ -33,25 +31,33 @@ program
 program
   .command('summary')
   .description('Summary of all expenses')
+  .option('-m, --month <number>', 'Month number')
   .action((options) => {
-    console.log(options)
+    if (options.month) {
+      const number = myParseInt(options.month)
+      if (number && number > 0 && number < 13) {
+        totalSummary({ month: number })
+      } else console.log('error: must be a number from 1 to 12')
+    } else totalSummary({ month: null })
   })
 
 program
   .command('delete')
   .description('Eliminate a expense')
-  .option('--id <number>', 'Expense ID')
+  .option('-i, --id <number>', 'Expense ID')
   .action((options) => {
-    console.log(options)
+    if (options.id) {
+      const number = myParseInt(options.id)
+      if (number && number > 0) {
+        deleteExpense({ idE: number })
+      } else console.log('error: must be a positive number')
+    } else console.log('error: id is required')
   })
 
 program.parse()
 
 function myParseInt (value) {
-  // parseInt takes a string and a radix
   const parsedValue = parseInt(value, 10)
-  if (isNaN(parsedValue)) {
-    return false
-  }
+  if (isNaN(parsedValue)) return false
   return parsedValue
 }
