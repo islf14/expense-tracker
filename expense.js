@@ -47,6 +47,16 @@ export async function addExpense ({ amount, description }) {
   // create json file
   const write = writeJson({ allExpenses })
   if (write) {
-    console.log(`Expense added successfully (ID: ${id}) \n`)
+    console.log(`Expense added successfully (ID: ${id})`)
+  }
+}
+
+export async function listExpenses () {
+  if (existsSync(nameFile)) {
+    let allTasks = []
+    allTasks = await readJson()
+    if (allTasks.length !== 0) {
+      console.log(allTasks)
+    }
   }
 }

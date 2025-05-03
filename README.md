@@ -9,29 +9,30 @@ Run the following commands:
 ```bash
 
 # Run on console
-npm run start
+$ > npm run start
 
-$ expense-tracker add --description "Lunch" --amount 20
+# To add
+$ > node index add --amount 20 --description "Lunch" 
 # Expense added successfully (ID: 1)
 
-$ expense-tracker add --description "Dinner" --amount 10
+$ > node index add --amount 10 --description "Dinner" 
 # Expense added successfully (ID: 2)
 
-$ expense-tracker list
+$ > node index list
 # ID  Date       Description  Amount
 # 1   2024-08-06  Lunch        $20
 # 2   2024-08-06  Dinner       $10
 
-$ expense-tracker summary
+$ > node index summary
 # Total expenses: $30
 
-$ expense-tracker delete --id 2
+$ > node index delete --id 2
 # Expense deleted successfully
 
-$ expense-tracker summary
+$ > node index summary
 # Total expenses: $20
 
-$ expense-tracker summary --month 8
+$ > node index summary --month 8
 # Total expenses for August: $20
 
 ```

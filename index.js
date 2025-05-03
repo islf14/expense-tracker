@@ -1,5 +1,5 @@
 import { Command } from 'commander'
-import { addExpense } from './expense.js'
+import { addExpense, listExpenses } from './expense.js'
 const program = new Command()
 
 program
@@ -26,8 +26,8 @@ program
 program
   .command('list')
   .description('List all expenses')
-  .action((options) => {
-    console.log(options)
+  .action(() => {
+    listExpenses()
   })
 
 program
