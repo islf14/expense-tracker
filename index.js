@@ -1,5 +1,10 @@
 import { Command } from 'commander'
-import { addExpense, deleteExpense, listExpenses, totalSummary } from './expense.js'
+import {
+  addExpense,
+  deleteExpense,
+  listExpenses,
+  totalSummary
+} from './expense.js'
 const program = new Command()
 
 program
@@ -56,7 +61,7 @@ program
 
 program.parse()
 
-function myParseInt (value) {
+function myParseInt(value) {
   const parsedValue = parseInt(value, 10)
   if (isNaN(parsedValue)) return false
   return parsedValue

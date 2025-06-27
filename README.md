@@ -12,10 +12,10 @@ Run the following commands:
 $ > npm run start
 
 # To add
-$ > node index add --amount 20 --description "Lunch" 
+$ > node index add --amount 20 --description "Lunch"
 # Expense added successfully (ID: 1)
 
-$ > node index add --amount 10 --description "Dinner" 
+$ > node index add --amount 10 --description "Dinner"
 # Expense added successfully (ID: 2)
 
 $ > node index list

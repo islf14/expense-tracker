@@ -3,16 +3,18 @@ import { existsSync } from 'node:fs'
 
 const nameFile = 'data.json'
 
-async function readJson () {
+async function readJson() {
   let allExpenses = []
   try {
     const data = await fs.readFile(nameFile, 'utf-8')
     allExpenses = JSON.parse(data)
-  } catch (error) { console.log('e.f.') }
+  } catch (error) {
+    console.log('e.f.')
+  }
   return allExpenses
 }
 
-async function writeJson ({ allExpenses }) {
+async function writeJson({ allExpenses }) {
   const jsonData = JSON.stringify(allExpenses, null, 2)
   try {
     await fs.writeFile(nameFile, jsonData, 'utf8')
@@ -23,7 +25,7 @@ async function writeJson ({ allExpenses }) {
   }
 }
 
-export async function addExpense ({ amount, description }) {
+export async function addExpense({ amount, description }) {
   let allExpenses = []
   // read file json
   if (existsSync(nameFile)) {
@@ -51,20 +53,29 @@ export async function addExpense ({ amount, description }) {
   }
 }
 
-export async function listExpenses () {
+export async function listExpenses() {
   if (existsSync(nameFile)) {
     let allExpenses = []
     allExpenses = await readJson()
     if (allExpenses.length !== 0) {
-      const allRows = allExpenses.map(task => {
+      const allRows = allExpenses.map((task) => {
         const id = `${task.id}`
         const amount = `$${task.amount}`
         const date = new Date(task.createdAt).toLocaleDateString()
-        return ` ${id.padEnd(4)} ${date.padEnd(10)} ${task.description.padEnd(20)} ${amount.padStart(6)}`
+        return ` ${id.padEnd(4)} ${date.padEnd(10)} ${task.description.padEnd(
+          20
+        )} ${amount.padStart(6)}`
       })
-      const eID = 'ID'; const eDate = 'Date'; const eDes = 'Description'; const eAmo = 'Amount'
-      console.log(`\n ${eID.padEnd(4)} ${eDate.padEnd(10)} ${eDes.padEnd(20)} ${eAmo.padStart(6)}`)
-      allRows.forEach(element => {
+      const eID = 'ID'
+      const eDate = 'Date'
+      const eDes = 'Description'
+      const eAmo = 'Amount'
+      console.log(
+        `\n ${eID.padEnd(4)} ${eDate.padEnd(10)} ${eDes.padEnd(
+          20
+        )} ${eAmo.padStart(6)}`
+      )
+      allRows.forEach((element) => {
         console.log(element)
       })
       console.log('\n')
@@ -73,12 +84,21 @@ export async function listExpenses () {
 }
 
 const monthNames = [
-  'January', 'February', 'March', 'April',
-  'May', 'June', 'July', 'August',
-  'September', 'October', 'November', 'December'
+  'January',
+  'February',
+  'March',
+  'April',
+  'May',
+  'June',
+  'July',
+  'August',
+  'September',
+  'October',
+  'November',
+  'December'
 ]
 
-export async function totalSummary ({ month }) {
+export async function totalSummary({ month }) {
   if (existsSync(nameFile)) {
     let allExpenses = []
     allExpenses = await readJson()
@@ -86,15 +106,15 @@ export async function totalSummary ({ month }) {
       let summary = 0
       if (month) {
         const monthName = monthNames[month - 1]
-        allExpenses.forEach(task => {
+        allExpenses.forEach((task) => {
           const dbMonth = new Date(task.createdAt).getMonth()
-          if ((parseInt(dbMonth, 10) + 1) === month) {
+          if (parseInt(dbMonth, 10) + 1 === month) {
             summary += task.amount
           }
         })
         console.log(`\n Total expenses for ${monthName}: $${summary} \n`)
       } else {
-        allExpenses.forEach(task => {
+        allExpenses.forEach((task) => {
           summary += task.amount
         })
         console.log(`\n Total expenses: $${summary} \n`)
@@ -103,7 +123,7 @@ export async function totalSummary ({ month }) {
   }
 }
 
-export async function deleteExpense ({ idE }) {
+export async function deleteExpense({ idE }) {
   if (existsSync(nameFile)) {
     let allExpenses = []
     allExpenses = await readJson()
